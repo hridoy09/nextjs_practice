@@ -2,9 +2,12 @@
 
 import React, { useState } from 'react'
 
+import useLogoutHandaler from "@/app/(auth)/login/_hooks/LogoutHandaler";
+
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
+    const { isLoading, LogoutHandaler } = useLogoutHandaler();
 
     return (
         <>
@@ -560,7 +563,12 @@ export default function Navbar() {
                                     </a>
                                 </li>
                                 <li className="_nav_dropdown_list_item">
-                                    <a href="#0" className="_nav_dropdown_link">
+                                    <a
+                                        href="#0"
+                                        className="_nav_dropdown_link"
+                                        aria-disabled={isLoading}
+                                        onClick={LogoutHandaler}
+                                    >
                                         <div className="_nav_drop_info">
                                             <span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19"
@@ -570,7 +578,7 @@ export default function Navbar() {
                                                         d="M6.667 18H2.889A1.889 1.889 0 011 16.111V2.89A1.889 1.889 0 012.889 1h3.778M13.277 14.222L18 9.5l-4.723-4.722M18 9.5H6.667" />
                                                 </svg>
                                             </span>
-                                            Log Out
+                                            {isLoading ? "Logging out..." : "Log Out"}
                                         </div>
                                         <span className="_nav_drop_btn_link">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="6" height="10"
